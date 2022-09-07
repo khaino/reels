@@ -19,9 +19,6 @@ class ReelRepositoryImpl implements ReelRepository
 
             $reelArgs = $this->formatReelArgs($args);
             $reel = Reel::create($reelArgs);
-
-            // $videoArgs = array_merge(['reel_id' => $reel->id], $args['video']);
-            // VideoClip::create($videoArgs);
             $this->videoRepo->create($reel->id, $args['video']);
 
             DB::commit();
