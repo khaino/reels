@@ -16,10 +16,12 @@
     "autoload": {
         "classmap": [
             "database/seeds",
-            "database/factories"
+            "database/factories",
+            "lib/timecode"
         ],
         "psr-4": {
-            "App\\": "app/"
+            "App\\": "app/",
+            "Lib\\": "lib/"
         }
     },
     "autoload-dev": {
