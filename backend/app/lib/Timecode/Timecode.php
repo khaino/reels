@@ -19,7 +19,7 @@ abstract class Timecode implements TimecodeInterface
     protected $frames;
     protected $fps;
 
-    public function __construct(int $frames, int $fps)
+    protected function __construct(int $frames, int $fps)
     {
         $this->frames = $frames;
         $this->fps = $fps;
