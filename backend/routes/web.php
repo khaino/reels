@@ -11,6 +11,14 @@
 |
 */
 
+$router->group(['prefix' => 'api/'], function() use ($router) {
+    $router->post('/reels', 'ReelController@create');
+    $router->get('/reels', 'ReelController@listReels');
+    $router->post('/reels/{reelId}/videos', 'VideoClipController@create');
+    $router->delete('/reels/{reelId}/videos/{id}', 'VideoClipController@delete');
+    $router->get('/reels/{reelId}', 'ReelController@getReel');
+});
+
 $router->get('/', function () use ($router) {
     return $router->app->version();
 });
