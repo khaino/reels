@@ -2,11 +2,12 @@
 
 namespace App\Services;
 
+use App\Exceptions\ValidationError;
+use App\Repositories\ReelRepository;
 use App\Repositories\VideoClipRepository;
 use App\Services\BaseService;
+use App\Services\Formatters\Output\ClipVideo;
 use PHPUnit\Runner\Exception;
-use App\Repositories\ReelRepository;
-use App\Exceptions\ValidationError;
 
 class VideoClipServiceImpl extends BaseService implements VideoClipService
 {
@@ -25,12 +26,12 @@ class VideoClipServiceImpl extends BaseService implements VideoClipService
         try {
             $this->validate($reelId, $args);
             $video = $this->repo->create($reelId, $args);
-            return $this->formatResponse(self::SUCCESS, $video);
+            return $this->formatResponse(self::SUCCESS, new ClipVideo($video));
         } catch (\PDOException $e) {
             return $this->formatResponse(self::DB_ERROR, null, $e->getMessage());
-        } catch(ValidationError $e) {
+        } catch (ValidationError $e) {
             return $this->formatResponse(self::VALIDATION_ERROR, null, $e->getMessage());
-        }catch (Exception $e) {
+        } catch (Exception $e) {
             return $this->formatResponse(self::ERROR, null, $e->getMessage());
         }
     }
@@ -46,7 +47,8 @@ class VideoClipServiceImpl extends BaseService implements VideoClipService
         }
     }
 
-    private function validate($reelId, $args) {
+    private function validate($reelId, $args)
+    {
         $reel = $this->reelRepo->getReel($reelId);
         if ($reel->definition != $args['definition']) {
             throw new ValidationError('Video defination must be ' . $reel->definition);
@@ -57,5 +59,4 @@ class VideoClipServiceImpl extends BaseService implements VideoClipService
         }
     }
 
-    
 }
