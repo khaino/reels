@@ -1,0 +1,28 @@
+version: "3.3"
+services:
+  postgres:
+    image: postgres:10
+    ports:
+      - "5432:5432"
+    environment:
+      - POSTGRES_DB=reels
+      - POSTGRES_USERNAME=postgres
+      - POSTGRES_PASSWORD=postgres 
+  app:
+    build:
+      context: ./..
+      dockerfile: ./docker/be/Dockerfile
+    command: ["/backend/start.sh"]
+    ports:
+      - "8000:8000"
+    links:
+      - postgres
+    environment:
+      - DB_CONNECTION=pgsql
+      - DB_HOST=postgres
+      - DB_PORT=5432
+      - DB_DATABASE=reels
+      - DB_USERNAME=postgres
+      - DB_PASSWORD=postgres
+volumes:
+  reels-data:
