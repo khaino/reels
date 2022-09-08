@@ -5,24 +5,32 @@ namespace App\Services;
 use App\Repositories\VideoClipRepository;
 use App\Services\BaseService;
 use PHPUnit\Runner\Exception;
+use App\Repositories\ReelRepository;
+use App\Exceptions\ValidationError;
 
 class VideoClipServiceImpl extends BaseService implements VideoClipService
 {
     private $repo;
 
-    public function __construct(VideoClipRepository $repo)
+    private $reelRepo;
+
+    public function __construct(VideoClipRepository $repo, ReelRepository $reelRepo)
     {
         $this->repo = $repo;
+        $this->reelRepo = $reelRepo;
     }
 
     public function create(int $reelId, array $args)
     {
         try {
+            $this->validate($reelId, $args);
             $video = $this->repo->create($reelId, $args);
             return $this->formatResponse(self::SUCCESS, $video);
         } catch (\PDOException $e) {
             return $this->formatResponse(self::DB_ERROR, null, $e->getMessage());
-        } catch (Exception $e) {
+        } catch(ValidationError $e) {
+            return $this->formatResponse(self::VALIDATION_ERROR, null, $e->getMessage());
+        }catch (Exception $e) {
             return $this->formatResponse(self::ERROR, null, $e->getMessage());
         }
     }
@@ -35,6 +43,17 @@ class VideoClipServiceImpl extends BaseService implements VideoClipService
             return $this->formatResponse(self::SUCCESS, $args, 'deleted video');
         } else {
             return $this->formatResponse(self::ERROR, $args, 'failed to delete video');
+        }
+    }
+
+    private function validate($reelId, $args) {
+        $reel = $this->reelRepo->getReel($reelId);
+        if ($reel->definition != $args['definition']) {
+            throw new ValidationError('Video defination must be ' . $reel->definition);
+        }
+
+        if ($reel->standard != $args['standard']) {
+            throw new ValidationError('Video standard must be ' . $reel->standard);
         }
     }
 

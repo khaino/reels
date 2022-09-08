@@ -7,6 +7,8 @@ use App\Repositories\Videos\VideoRepositoryImpl;
 use Illuminate\Support\ServiceProvider;
 use App\Services\VideoClipServiceImpl;
 use App\Repositories\VideoClipRepositoryImpl;
+use App\Repositories\ReelRepository;
+use App\Repositories\ReelRepositoryImpl;
 
 class VideoClipServiceProvider extends ServiceProvider
 {
@@ -18,7 +20,7 @@ class VideoClipServiceProvider extends ServiceProvider
     public function register()
     {
         $this->app->singleton(\App\Services\VideoClipService::class, function ($app) {
-            return new VideoClipServiceImpl($app->make(VideoClipRepositoryImpl::class));
+            return new VideoClipServiceImpl($app->make(VideoClipRepositoryImpl::class), $app->make(ReelRepositoryImpl::class));
         });
     }
 }

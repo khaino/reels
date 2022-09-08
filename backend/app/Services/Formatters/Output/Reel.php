@@ -6,6 +6,7 @@ use App\Lib\Timecode\Timecode;
 
 class Reel
 {
+    public $id;
     public $name;
     public $duration;
     public $standard;
@@ -13,6 +14,7 @@ class Reel
     public $clip_videos;
     public function __construct($reel)
     {
+        $this->id = $reel->id;
         $this->name = $reel->name;
         $this->standard = $reel->standard;
         $this->definition = $reel->definition;

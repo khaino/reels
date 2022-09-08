@@ -6,6 +6,7 @@ use App\Lib\Timecode\Timecode;
 
 class ClipVideo
 {
+    public $id;
     public $name;
     public $duration;
     public $standard;
@@ -15,6 +16,7 @@ class ClipVideo
     public $end;
     public function __construct($video)
     {
+        $this->id = $video->id;
         $this->name = $video->name;
         $this->standard = $video->standard;
         $this->definition = $video->definition;
