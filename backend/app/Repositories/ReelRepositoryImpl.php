@@ -56,7 +56,7 @@ class ReelRepositoryImpl implements ReelRepository
         return [
             'name' => $args['name'],
             'standard' => $args['video']['standard'],
-            'definition' => $args['video']['standard'],
+            'definition' => $args['video']['definition'],
         ];
     }
 }

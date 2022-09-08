@@ -18,8 +18,8 @@ class VideoClipServiceImpl extends BaseService implements VideoClipService
     public function create(int $reelId, array $args)
     {
         try {
-            $reels = $this->repo->create($reelId, $args);
-            return $this->formatResponse(self::SUCCESS, $reels);
+            $video = $this->repo->create($reelId, $args);
+            return $this->formatResponse(self::SUCCESS, $video);
         } catch (\PDOException $e) {
             return $this->formatResponse(self::DB_ERROR, null, $e->getMessage());
         } catch (Exception $e) {
@@ -37,4 +37,6 @@ class VideoClipServiceImpl extends BaseService implements VideoClipService
             return $this->formatResponse(self::ERROR, $args, 'failed to delete video');
         }
     }
+
+    
 }
