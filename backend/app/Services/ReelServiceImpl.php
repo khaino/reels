@@ -31,7 +31,10 @@ class ReelServiceImpl extends BaseService implements ReelService
     public function listReels()
     {
         $reels = $this->repo->listReels();
-        $formattedReels = array_map([$this, 'formatReel'], $reels);
+        $formattedReels = [];
+        foreach($reels as $reel) {
+            $formattedReels[] = $this->formatReel($reel);
+        }
         return $this->formatResponse(self::SUCCESS, $formattedReels);
     }
 
@@ -43,6 +46,6 @@ class ReelServiceImpl extends BaseService implements ReelService
 
     private function formatReel($reel)
     {
-        return new Reel($reel);
+        return new Reel((object) $reel);
     }
 }
