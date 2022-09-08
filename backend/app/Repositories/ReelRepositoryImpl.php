@@ -3,13 +3,13 @@
 namespace App\Repositories;
 
 use App\Models\Reel;
-use App\Models\VideoClip;
 use Illuminate\Support\Facades\DB;
 
 class ReelRepositoryImpl implements ReelRepository
 {
     private $videoRepo;
-    function __construct(VideoClipRepository $videoRepo) {
+    public function __construct(VideoClipRepository $videoRepo)
+    {
         $this->videoRepo = $videoRepo;
     }
     public function createReel(array $args)
