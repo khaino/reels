@@ -14,6 +14,8 @@ Open terminal & go to project root directory and execute the following command
 ## TODOs
  - Implement front end
 
+## DB Schema
+![Schema](reels_schema.png)
 ## API docs
 ### Create Reel
 #### Request
