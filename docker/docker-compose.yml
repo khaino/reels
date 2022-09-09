@@ -24,5 +24,6 @@ services:
       - DB_DATABASE=reels
       - DB_USERNAME=postgres
       - DB_PASSWORD=postgres
+      - APP_ENV=local
 volumes:
   reels-data:
