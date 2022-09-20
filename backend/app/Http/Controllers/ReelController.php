@@ -23,7 +23,7 @@ class ReelController extends Controller
         return $this->reelService->listReels();
     }
 
-    public function getReel(int $reelId)
+    public function getReel(string $reelId)
     {
         return $this->reelService->getReel($reelId);
     }

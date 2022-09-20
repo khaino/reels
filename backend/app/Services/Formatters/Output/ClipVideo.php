@@ -14,6 +14,7 @@ class ClipVideo
     public $description;
     public $start;
     public $end;
+    public $reel_id;
     public function __construct($video)
     {
         $this->id = $video->id;
@@ -24,6 +25,7 @@ class ClipVideo
         $this->start = $video->start;
         $this->end = $video->end;
         $this->duration = $this->getDuration($video->duration);
+        $this->reel_id = $video->reel_id;
     }
 
     private function getDuration($duration)

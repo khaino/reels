@@ -40,6 +40,7 @@ class ReelRepositoryImpl implements ReelRepository
     public function listReels()
     {
         return Reel::with($this->videoQuery())
+            ->orderBy('id', 'DESC')
             ->get();
     }
 
