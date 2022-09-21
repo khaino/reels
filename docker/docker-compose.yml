@@ -7,7 +7,7 @@ services:
     environment:
       - POSTGRES_DB=reels
       - POSTGRES_USERNAME=postgres
-      - POSTGRES_PASSWORD=postgres 
+      - POSTGRES_PASSWORD=postgres
   app:
     build:
       context: ./..
@@ -25,5 +25,14 @@ services:
       - DB_USERNAME=postgres
       - DB_PASSWORD=postgres
       - APP_ENV=local
+  frontend:
+    build:
+      context: ./..
+      dockerfile: ./docker/fe/Dockerfile
+    ports:
+      - "3000:3000"
+    links:
+      - app
+
 volumes:
   reels-data:
