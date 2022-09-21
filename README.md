@@ -7,7 +7,7 @@ Open terminal & go to project root directory and execute the following command
 
 1. `make build` to build the project
 2. `make start` to run the project
-3. `curl` APIs
+3. Go to http://localhost:3000/
 4. `make stop` to stop
 
 
