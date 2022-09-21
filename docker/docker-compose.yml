@@ -33,6 +33,7 @@ services:
       - "3000:3000"
     links:
       - app
+      - postgres
 
 volumes:
   reels-data:
